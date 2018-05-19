@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang='en'>
+
 <head>
 	<meta class="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>Get Content</title>
 	<link rel='stylesheet' href='css/style.css' />
 </head>
+
 <body>
 	<!-- navbar -->
 	<div class="navbar navbar--extended">
@@ -15,11 +17,22 @@
 				<a href="./index.html" class="navbar__logo"></a>
 				<nav class="navbar__menu">
 					<ul>
-						<li><a href="./get-content.html">Get</a></li>
-						<li><a href="./contribute.html">Contribute</a></li>
+						<li>
+							<a href="./get-content.html">Get</a>
+						</li>
+						<li>
+							<a href="./contribute.html">Contribute</a>
+						</li>
 					</ul>
 				</nav>
-				<div class="navbar__menu-mob"><a href="" id='toggle'><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z" class=""></path></svg></a></div>
+				<div class="navbar__menu-mob">
+					<a href="" id='toggle'>
+						<svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+							<path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+							 class=""></path>
+						</svg>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -32,7 +45,7 @@
 				<div class="page__header__content">
 					<div class="page__header__content__inner" id='navConverter'>
 						<h1 class="page__header__title">Get Conent</h1>
-						<p class="page__header__text">This is  where you can find content to add to your game.</p>
+						<p class="page__header__text">This is where you can find content to add to your game.</p>
 					</div>
 				</div>
 			</div>
@@ -43,24 +56,72 @@
 		<div class="container">
 			<div class="page__inner">
 				<div class="page__menu">
-					<ul class="vMenu">
-						<li><a href="#" class="vMenu--active">Active page</a></li>
-						<li><a href="#">Second page</a></li>
-						<li><a href="#">Third page</a></li>
-						<li><a href="#">Fourth page</a></li>
-						<li><a href="#">Fifth page</a></li>
+					<ul id="page-menu" class="vMenu">
 					</ul>
 				</div>
-				<div class="page__main">
-					<div class="text-container">
-						<h3 class="page__main__title">This is the main area</h3>
-						<p>Write or do whatever you want here!</p>
-					</div>
+				<div id="page-content" class="page__main">
+
 				</div>
 			</div>
 		</div>
 	</div>
 
-<script src='js/app.min.js'></script>
+	<script src='js/app.min.js'></script>
+	<script>
+		//////////////////////////////////////////////////////////////////
+
+		missions = [
+////////////////////////////////////			
+			{
+				menu: "one", 
+				title: "Title One", 
+				description: `<p>Text One</p>` 
+			},
+////////////////////////////////////			
+			{
+				menu: "two", 
+				title: "Title Two", 
+				description: `<p>Text Two</p>` }
+		];
+
+
+		////////////////////////////////////////////////////
+		var menu = document.getElementById("page-menu");
+		var active;
+
+		function setPage(mission) {
+			let page = document.getElementById("page-content")
+				page.innerHTML = `<div class="text-container">
+					<h3 class="page__main__title">${mission.title}</h3>
+					${mission.description}
+					</div>`
+		}
+
+		for (let mission of missions) {
+			let li = document.createElement("li")
+			let anchor = document.createElement("a")
+			anchor.href = "#";
+			anchor.text = mission.menu;
+			anchor.onclick = () => {
+				if (active) {
+					active.classList.remove('vMenu--active')
+					li.classList.add('vMenu--active')
+					active = li;	
+				}
+				setPage(mission);
+			}
+
+			li.appendChild(anchor)
+			menu.appendChild(li)
+			if (!active) {
+				li.classList.add('vMenu--active')
+				active = li;
+				setPage(mission);
+			}
+		}
+
+
+	</script>
 </body>
+
 </html>
